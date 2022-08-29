@@ -5,15 +5,20 @@
 
 struct aluno
 {
-    int *mtr;
-    char *nome[81];
-    char *end[121];
-    char *num[21];
+    int mtr;
+    char nome[81];
+    char end[121];
+    char num[21];
 };
 typedef struct aluno Aluno;
 
 int main(void){
-    Aluno** vAlun =(Aluno*)malloc(sizeof(Aluno)*QTD);
+    int i;
+    Aluno* vAlun = (Aluno*)malloc(sizeof(Aluno)*QTD);
+    Aluno** vAlun[QTD];
+    for (i=0;i<QTD;i++){
+        vAlun[i] = *(vAlun[i]);
+    }
     //insereDados(vAlun,2111295,"joao victor","barao do flamengo","21969214705");
     
 
