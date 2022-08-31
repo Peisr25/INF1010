@@ -37,3 +37,17 @@ void insereDados(Aluno* vAlun,int mtr,char*nome,char* end,char* num){
     strcpy(vAlun->num,num);
 
 }
+
+
+/*
+int main() {
+  
+  Aluno* struc = malloc(sizeof(Aluno));
+  //Aluno* str[1];
+  Aluno** vAlun[5];
+  vAlun[0] = struc;
+  vAlun[0].mtr = 100;
+  //str[0]= malloc(sizeof(Aluno));
+  return 0;
+}
+*/
