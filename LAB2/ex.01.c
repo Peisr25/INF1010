@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#define QTD 5
 
 struct aluno
 {
@@ -22,18 +21,28 @@ void insereDados(Aluno* vAlun,int mtr,char *nome,char *ender,char *tel){
     strcpy(vAlun->tel,tel);
 }
 
-int tamStr(char string[]){
-    if (string[0] =='\0')
-        return 0;
-    return 1+tamStr(&string[1]);
+void remove(Aluno** vAlun,int n, int i){
+    if (i<0 || i>=n){
+        printf("Indice nao existe\n");
+        exit(1);
+    }
+    if (vAlun[i] != NULL){
+        free(vAlun[i]);
+        vAlun[i] = NULL;
+    }
 }
-void imprimeStr(char string[]){
-    if(string[0]=='\0')
-        return;
-    printf("%c",string[0]);
-    return imprimeStr(string+1);
 
+int busca (int n, int* vet, int elem){
+    int i;
+    for (i=0; i<n; i++) {
+        if (elem == vet[i])
+            return i; 
+    }
+
+return -1;
 }
+
+int busca()
 
 int main(void){
     int i;
@@ -48,11 +57,5 @@ int main(void){
     insereDados(vAlun[2],2111295,"pedro lucas","rua tresquatro","214842512");
     insereDados(vAlun[3],2111295,"jullia","rua cincoseis","215456425");
     insereDados(vAlun[4],2111295,"luciana","rua seteoito","216545452");
-      
-      
-    int tam = tamStr(nome);
-    printf("Tamanho da string 'jose carlos': %d\n",tam);
-    printf("Teste da funcao imprimeStr:\n");
-    imprimeStr(nome);
-    return 0;
 }
+      
