@@ -7,7 +7,7 @@ struct aluno
 {
     int mtr;
     char nome[81];
-    char ender[21];
+    char ender[121];
     char tel[21];
 };
 typedef struct aluno Aluno;
