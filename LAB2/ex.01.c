@@ -32,10 +32,10 @@ void remove(Aluno** vAlun,int n, int i){
     }
 }
 
-int busca (int n, int* vet, int elem){
+int buscaNome(int n, Aluno** vAlun, char* nome){
     int i;
     for (i=0; i<n; i++) {
-        if (elem == vet[i])
+        if (strcmp(nome,vAlun[i]->nome)==0)
             return i; 
     }
 
