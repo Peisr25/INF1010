@@ -39,8 +39,16 @@ int main(void){
     int i;
     char nome[] = "jose carlos";
     Aluno** vAlun = (Aluno**)malloc(QTD*sizeof(Aluno*));
+    if(vAlun == NULL){
+        printf("Nao foi possivel alocar o vetor!");
+        exit(1);
+    }   
     for (i=0;i<QTD;i++){
         vAlun[i]=(Aluno*)malloc(sizeof(Aluno));
+        if(vAlun[i]==NULL){
+            printf("Nao foi possivel alocar o elemento!");
+            exit(1);
+        }
 
     }
     insereDados(vAlun[0],005421,"jose carlos","rua doisum","215456487");
