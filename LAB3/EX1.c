@@ -31,12 +31,37 @@ Aluno* insereElem(Aluno* lista,int mtr, char*nome,char*ender,char*tel){
     novo->prox = lista;
     return novo;
 }
+
+Aluno* atualizaElem(Aluno* lista,int mtr,char*nome){
+    Aluno* p=lista;
+    while(p!=NULL&&p->mtr!=mtr){
+        p=p->prox;
+    }
+    if(p==NULL) return lista;
+    
+    strcpy(p->nome,nome);
+    return lista;
+}
+Aluno* removeElem(Aluno*lista,int mtr){
+    Aluno* p = lista;
+    Aluno* ant = NULL;
+    while (p!=NULL&&p->mtr!=mtr){
+        ant = p;
+        p=p->prox;
+    }
+    if(p==NULL) return lista;
+    if(ant==NULL) lista = p->prox;
+    else ant->prox = p->prox;
+    free(p);
+    return lista;
+}
+
 int main (void){
     Aluno* lista;
     lista = criaLista();
     lista = insereElem(lista,2111291,"joao victor","rua umdois","21213213");
     lista = insereElem(lista,2111294,"joao lucas","rua tresquatro","21267453");
     lista = insereElem(lista,2111296,"joao paulo","rua cincoseis","21532322");
-
+    lista = removeElem(lista,2111296);
     return 0;
 }
