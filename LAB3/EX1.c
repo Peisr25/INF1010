@@ -103,7 +103,7 @@ void liberaLista(Aluno* lista){
     }
 }
 int main (void){
-    int pos,igualdade;
+    int pos,igualdade,testeVazia;
     Aluno* lista;
     lista = criaLista();
     lista = insereElem(lista,2111291,"joao victor","rua umdois","21213213");
@@ -116,6 +116,7 @@ int main (void){
     pos = buscaElem(lista,2111296);
     printf("Posicao do elementro com matricula '2111291': %d",pos);
     igualdade = igualdadeDeElem(lista,2111291,2111291);
+    testeVazia = testaVazia(lista);
     liberaLista(lista);
     return 0;
 }   
