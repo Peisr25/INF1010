@@ -55,13 +55,67 @@ Aluno* removeElem(Aluno*lista,int mtr){
     free(p);
     return lista;
 }
+void imprElem(Aluno* lista){
+    int cont=1;
+    Aluno* p = lista;
+    while(p!=NULL){
+        printf("Elemento: %d\n Nome: %s\n Matricula: %d\n Endereco: %s\n Telefone: %s\n",cont,p->nome,p->mtr,p->ender,p->tel);
+        p=p->prox;
+        cont++;
+    }
 
+}
+int buscaElem(Aluno* lista,int mtr){
+    int cont =0;
+    Aluno* p =lista;
+    while (p!=NULL&&p->mtr!=mtr){
+        p = p->prox;
+        cont++;
+    }
+    if(p==NULL){
+        printf("elemento nao encontrado");
+        return -1;
+    }
+    return cont;
+    
+}
+int igualdadeDeElem(Aluno* lista, int mtr1,int mtr2){
+    Aluno* p1,*p2=lista;
+    while(p1!=NULL && p1->mtr!=p2->mtr){
+        p2=p2->prox;
+    }
+    if(p2==NULL){
+        printf("Nao ha igualdade!");
+        return 0;
+    }
+    return 1;
+}
+int testaVazia(Aluno*lista){
+    if(lista==NULL) return 1;
+    return 0;
+}
+void liberaLista(Aluno* lista){
+    Aluno *p,*ant;
+    while(p!=NULL){
+        ant =p;
+        p=p->prox;
+        free(ant);
+    }
+}
 int main (void){
+    int pos,igualdade;
     Aluno* lista;
     lista = criaLista();
     lista = insereElem(lista,2111291,"joao victor","rua umdois","21213213");
     lista = insereElem(lista,2111294,"joao lucas","rua tresquatro","21267453");
-    lista = insereElem(lista,2111296,"joao paulo","rua cincoseis","21532322");
-    lista = removeElem(lista,2111296);
+    lista = insereElem(lista,2111291,"joao paulo","rua cincoseis","21532322");
+    lista = insereElem(lista,2111295,"joao paulo","rua cincoseis","21532322");
+   // lista = removeElem(lista,2111291);
+    printf("Impressao da lista:\n");
+    imprElem(lista);
+    pos = buscaElem(lista,2111296);
+    printf("Posicao do elementro com matricula '2111291': %d",pos);
+    igualdade = igualdadeDeElem(lista,2111291,2111291);
+    liberaLista(lista);
     return 0;
-}
+}   
