@@ -45,9 +45,9 @@ int pilhaRemove(Pilha*p){
     p->topo--;
     return val;
 }
-/*int inicializar(Pilha * pino1, int discos){
-
-}*/
+int inicializar(Pilha * pino1, int discos){
+    
+}
 
 int main(void){
     Pilha* pino1;
