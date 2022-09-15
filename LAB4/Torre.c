@@ -6,7 +6,7 @@ typedef struct pilha Pilha;
 struct pilha{
     int topo;
     int Pilha[TAM];
-}
+};
 
 Pilha* pilhaCria(){
     Pilha* p = (Pilha*)malloc(sizeof(Pilha));
@@ -19,8 +19,21 @@ void pilhaInsere(Pilha* p,int val){
         printf("Pilha atingiu sua capaciadade maxima\n");
         exit(1);
     }
-    p->vet[p->topo]=val;
+    p->Pilha[p->topo]=val;
     p->topo++;
+}
+int moveDisc(Pilha* pilha1,Pilha* pilha2){
+    int disco;
+    if(pilha2->topo<=TAM){
+        disco = pilha1->Pilha[pilha1->topo-1];
+        pilha1->Pilha[pilha1->topo-1]=0;
+        pilha1->topo--;
+        pilha2->Pilha[pilha1->topo]= disco;
+        pilha2->topo++;
+        return 1;
+    }
+    return 0;
+
 }
 int pilhaRemove(Pilha*p){
     int val;
@@ -28,7 +41,7 @@ int pilhaRemove(Pilha*p){
         printf("Pilha esta vazia\n");
         exit(1);
     }
-    v = p->vet[p->topo-1];
+    val = p->Pilha[p->topo-1];
     p->topo--;
     return val;
 }
@@ -37,6 +50,6 @@ int pilhaRemove(Pilha*p){
 }*/
 
 int main(void){
-    
-
+    Pilha* pino1;
+    pino1 = pilhaCria();
 }
