@@ -110,7 +110,6 @@ int main (void){
     lista = insereElem(lista,2111294,"joao lucas","rua tresquatro","21267453");
     lista = insereElem(lista,2111291,"joao paulo","rua cincoseis","21532322");
     lista = insereElem(lista,2111295,"joao paulo","rua cincoseis","21532322");
-   // lista = removeElem(lista,2111291);
     printf("Impressao da lista:\n");
     imprElem(lista);
     pos = buscaElem(lista,2111296);

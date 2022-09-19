@@ -59,7 +59,13 @@ void atualizaElem(Aluno**vAlun, int mtr,char* novoNome){
     pos = buscaMtr(QTD,vAlun,mtr);
     strcpy(vAlun[pos]->nome,novoNome);
 }
-
+void liberaVet(Aluno** vAlun){
+    int i;
+    for(i=0;i<QTD;i++){
+        free(vAlun[i]);
+    }
+    free(vAlun);
+}
 int main(void){
     int i;
     Aluno** vAlun = (Aluno**)malloc(QTD*sizeof(Aluno*));

@@ -34,7 +34,13 @@ void imprimeStr(char string[]){
     return imprimeStr(string+1);
 
 }
-
+void liberaVet(Aluno** vAlun){
+    int i;
+    for(i=0;i<QTD;i++){
+        free(vAlun[i]);
+    }
+    free(vAlun);
+}
 int main(void){
     int i;
     char nome[] = "jose carlos";
@@ -62,5 +68,6 @@ int main(void){
     printf("Tamanho da string 'jose carlos': %d\n",tam);
     printf("Teste da funcao imprimeStr:\n");
     imprimeStr(nome);
+    liberaVet(vAlun);
     return 0;
 }
