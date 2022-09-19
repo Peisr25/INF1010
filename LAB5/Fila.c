@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 #define TAM 3
@@ -66,21 +66,15 @@ char* filaRetira(Fila*filaPedidos,int* numPedido){
 }
 
 void imprimeFilas(Fila* f){
-    int i,cont;
+    int i;
     if(filaVazia(f)){
         printf("Fila esta vazia\n");
         exit(1);
     }
     printf("\n%-10s NOME DO PRATO\n","NUMERO");
-    /*for(cont=0, i=f->ini; cont < f->n;cont++){
-    printf("%d %10s\n",f->numPedidos[i++],f->vetPedidos[i++]);
-    }*/
-    for(i=0;i<TAM;i++){
-      
+    for(i=0;i<TAM;i++){  
       printf("%-10d %s\n",f->numPedidos[i],f->vetPedidos[i]);
-      
     }
-    
 }
 
 int main(void){ 
