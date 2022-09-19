@@ -71,13 +71,13 @@ void imprimeFilas(Fila* f){
         printf("Fila esta vazia\n");
         exit(1);
     }
-    printf("NUMERO -------- NOME PRATO\n");
+    printf("\n%-10s NOME DO PRATO\n","NUMERO");
     /*for(cont=0, i=f->ini; cont < f->n;cont++){
     printf("%d %10s\n",f->numPedidos[i++],f->vetPedidos[i++]);
     }*/
     for(i=0;i<TAM;i++){
       
-      printf("%d %10s\n",f->numPedidos[i],f->vetPedidos[i]);
+      printf("%-10d %s\n",f->numPedidos[i],f->vetPedidos[i]);
       
     }
     
@@ -91,24 +91,30 @@ int main(void){
     filaInsere(filaCozinha,1,"batata frita");
     filaInsere(filaCozinha,2,"gurjao de frango");
     filaInsere(filaCozinha,3,"nugget");
-    printf("----------FILA COZINHA----------\n");
+    printf("\n----------FILA COZINHA----------");
     imprimeFilas(filaCozinha);
-    
-    printf("---------MOVENDO PEDIDOS PARA ENTREGA---------\n");
+    printf("\n----------FILA ENTREGA----------");
+    imprimeFilas(filaEntrega);
+    printf("\n---------MOVENDO PEDIDOS PARA ENTREGA---------\n");
     
     pedidoRetirado = filaRetira(filaCozinha,&numPedidoRet);
     filaInsere(filaEntrega,numPedidoRet,pedidoRetirado);
+    printf("\n----------FILA COZINHA----------");
     imprimeFilas(filaCozinha);
+    printf("\n----------FILA ENTREGA----------");
     imprimeFilas(filaEntrega);
-
     pedidoRetirado1 = filaRetira(filaCozinha,&numPedidoRet1);
     filaInsere(filaEntrega,numPedidoRet1,pedidoRetirado1);
+    printf("\n----------FILA COZINHA----------");
     imprimeFilas(filaCozinha);
+    printf("\n----------FILA ENTREGA----------");
     imprimeFilas(filaEntrega);
 
     pedidoRetirado2 = filaRetira(filaCozinha,&numPedidoRet2);
     filaInsere(filaEntrega,numPedidoRet2,pedidoRetirado2);
+    printf("\n----------FILA COZINHA----------");
     imprimeFilas(filaCozinha);
+    printf("\n----------FILA ENTREGA----------");
     imprimeFilas(filaEntrega);
     
     return 0;
