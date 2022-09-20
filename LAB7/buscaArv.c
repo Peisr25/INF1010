@@ -57,18 +57,6 @@ void arvImprime(noArv* arv){
         arvImprime(arv->dir);
     }
 }
-
-noArv* arvCria(int c, noArv* sae,noArv*sad){
-    noArv* arv = (noArv*)malloc(sizeof(noArv));
-        if (arv==NULL){
-            printf("Nao foi possivel alocar a arvore");
-            exit(1);
-        }
-    arv->info = c;
-    arv->esq = sae;
-    arv->dir = sad;
-    return arv;
-}
 noArv* liberaArv(noArv* arv){
     if(!arvVazia(arv)){
         liberaArv(arv->esq);
