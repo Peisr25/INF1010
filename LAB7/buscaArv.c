@@ -10,6 +10,29 @@ struct noArv{
 
 typedef struct noArv noArv;
 
+int maxi(int a, int b){
+    return (a >= b ) ? a : b;
+}
+
+int alturaArv(noArv* arv){
+    if(arv == NULL){
+        return 0;
+    }
+    return 1 + maxi(alturaArv(arv->esq),alturaArv(arv->dir));
+}
+
+
+int verificaBalanceada(noArv* arv){
+    int altEsq, altDir;
+    if(arv==NULL) return 1;
+    altEsq = alturaArv(arv->esq);
+    altDir = alturaArv(arv->dir);
+    if (abs(altEsq-altDir) <= 1 && verificaBalanceada(arv->esq) && verificaBalanceada(arv->dir)){
+        return 1;
+    }
+    return 0;
+
+}
 noArv* arvCriaVazia(void){
     return NULL;
 }
@@ -92,9 +115,17 @@ noArv* insereElem(noArv* arv,int v){
         arv = (noArv*)malloc(sizeof(noArv));
         arv->info = v;
         arv->esq = arv->dir = NULL;
+        arv->pai = NULL;
     }
     else if(v< arv->info){
-        arv->esq = insereElem(arv->dir,v);
+        noArv* filhoEsq = insereElem(arv->esq,v);
+        arv->esq = filhoEsq;
+        filhoEsq->pai = arv;
+    }
+    else if(v>arv->info){
+        noArv* filhoDir = insereElem(arv->dir,v);
+        arv->dir = filhoDir;
+        filhoDir->pai = arv;
     }
     return arv;
 }
@@ -134,23 +165,13 @@ noArv* retiraElem(noArv* arv,int val){
             else
                 sucessor->pai->dir=sucessor->dir;
             if(sucessor->dir!=NULL)sucessor->dir->pai=sucessor->pai;
+            //ant->esq =NULL;
             free(sucessor);
         }
     }
     return arv;
 }
 int main(void){
-    /*noArv* a1 = arvCria(21,arvCriaVazia(),arvCriaVazia());
-    noArv* a2 = arvCria(22,a1,arvCriaVazia());
-    noArv* a3 = arvCria(30,arvCriaVazia(),arvCriaVazia());
-    noArv* a4 = arvCria(25,a2,a3);
-    noArv* a5 = arvCria(16,arvCriaVazia(),arvCriaVazia());
-    noArv* a6 = arvCria(19,arvCriaVazia(),arvCriaVazia());
-    noArv* a7 = arvCria(18,a5,a6);
-    noArv* a8 = arvCria(20,a7,a4);
-    noArv* a9 = arvCria(5,arvCriaVazia(),arvCriaVazia());
-    noArv* a10 = arvCria(10,a9,arvCriaVazia());
-    noArv* a11 = arvCria(15,a10,a8);*/
     noArv* arv = arvCriaVazia();
     arv = insereElem(arv,15);
     arv = insereElem(arv,10);
@@ -163,11 +184,22 @@ int main(void){
     arv = insereElem(arv,22);
     arv = insereElem(arv,30);
     arv = insereElem(arv,21);
-
-    //printf("\nImpressao pos-ordem:\n");
-    //exibirPosOrdem(a11);
-    //printf("\nImpressao pre-ordem:\n");
-    //exibirPreOrdem(a11);
-    //arvImprime(a13);
+    exibirEmOrdem(arv);
+    printf("\ninserindo elementos 3,7,13,17,29\n");
+    arv = insereElem(arv,3);
+    arv = insereElem(arv,7);
+    arv = insereElem(arv,13);
+    arv = insereElem(arv,17);
+    arv = insereElem(arv,29);
+    exibirEmOrdem(arv);
+    printf("\nremovendos os elementos: 5,15,16,18,22\n");
+    arv = retiraElem(arv,5);
+    arv = retiraElem(arv,15);
+    arv = retiraElem(arv,26);
+    arv = retiraElem(arv,18);
+    arv = retiraElem(arv,22);
+    exibirEmOrdem(arv);
+    int verfBalanc = verificaBalanceada(arv);
+    printf("\nTeste Balanceamento:\n0: nao balanceada 1: balanceada\nResultado: %d",verfBalanc);
     return 0;
 }
