@@ -72,32 +72,6 @@ void exibirEmOrdem(noArv *arv){
         exibirEmOrdem(arv->dir);
     }
 }
-void exibirPreOrdem(noArv *arv){
-    if(!arvVazia(arv)){
-        printf("%d", arv->info);
-        exibirPreOrdem(arv->esq);
-        exibirPreOrdem(arv->dir);
-    }
-}
-void exibirPosOrdem(noArv *arv){
-    if(!arvVazia(arv)){
-        exibirPreOrdem(arv->esq);
-        exibirPreOrdem(arv->dir);
-        printf("%d", arv->info);
-    }
-
-}
-noArv* buscaArv(noArv* arv,int v){
-    if (arv == NULL) return NULL;
-    else if (arv->info > v){
-        return buscaArv(arv->esq,v);
-    }
-    else if(arv->info < v){
-        return buscaArv(arv->esq,v);
-    }
-    else return arv;
-}
-
 noArv* insereElem(noArv* arv,int v){
     if(arv ==NULL){
         arv = (noArv*)malloc(sizeof(noArv));
@@ -188,6 +162,8 @@ int main(void){
     arv = retiraElem(arv,22);
     exibirEmOrdem(arv);
     int verfBalanc = verificaBalanceada(arv);
-    printf("\nTeste Balanceamento:\n0: nao balanceada 1: balanceada\nResultado: %d",verfBalanc);
+    printf("\nTeste Balanceamento:\n0: nao balanceada 1: balanceada\nResultado: %d\n",verfBalanc);
+    printf("Liberando arvore!");
+    liberaArv(arv);
     return 0;
 }

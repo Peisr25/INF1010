@@ -17,23 +17,6 @@ int arvVazia(noArv* arv){
     return arv==NULL;
 
 }
-int arvPertence(noArv* arv, char c){
-    if(arvVazia(arv)) return 0;
-    else{
-        return arv->info ==c || 
-        arvPertence(arv->esq,c)||
-        arvPertence(arv->dir,c);
-    }
-
-}
-void arvImprime(noArv* arv){
-    if(!arvVazia(arv)){
-        printf("%c",arv->info);
-        arvImprime(arv->esq);
-        arvImprime(arv->dir);
-    }
-}
-
 noArv* arvCria(char c, noArv* sae,noArv*sad){
     noArv* arv = (noArv*)malloc(sizeof(noArv));
         if (arv==NULL){
@@ -59,7 +42,6 @@ void exibirEmOrdem(noArv *arv){
         printf("%c", arv->info);
         exibirEmOrdem(arv->dir);
     }
-    printf("*");
 }
 void exibirPreOrdem(noArv *arv){
     if(!arvVazia(arv)){
@@ -67,7 +49,6 @@ void exibirPreOrdem(noArv *arv){
         exibirPreOrdem(arv->esq);
         exibirPreOrdem(arv->dir);
     }
-    printf("*");
 }
 void exibirPosOrdem(noArv *arv){
     if(!arvVazia(arv)){
@@ -75,7 +56,6 @@ void exibirPosOrdem(noArv *arv){
         exibirPreOrdem(arv->dir);
         printf("%c", arv->info);
     }
-    printf("*");
 }
 
 int main(void){
@@ -98,6 +78,7 @@ int main(void){
     exibirPosOrdem(a13);
     printf("\nImpressao pre-ordem:\n");
     exibirPreOrdem(a13);
-    //arvImprime(a13);
+    printf("\nLiberando arvore!");
+    liberaArv(a1);
     return 0;
 }
