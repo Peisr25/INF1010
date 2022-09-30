@@ -97,6 +97,7 @@ void shuting(char* exp,char* ret){
         strncat(retorno,&temp1,1);
     }
     strcpy(ret,retorno);
+    pilhaLibera(pilha);
 }
 
 int main(void){
