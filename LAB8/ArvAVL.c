@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-struct arvAVL
+struct avl
 {
     int info;
     int fatorBalan;
@@ -8,7 +8,7 @@ struct arvAVL
     struct arvAVL *esq;
     struct arvAVL *dir;
 };
-typedef struct arvAVL arvAVL;
+typedef struct avl arvAVL;
 
 arvAVL* rotDir(arvAVL* arv);
 arvAVL* rotEsq(arvAVL* arv);
@@ -41,7 +41,7 @@ arvAVL* insere2(arvAVL* arv,int info,int* cresceu){
                 arv->fatorBalan = -1;
                 break;
             case -1:
-                if(arv->esq->fatorBalan==-1){
+                if(arv->fatorBalan == -1){
                     arv = rotDir(arv);
                 }
                 else{
@@ -60,6 +60,7 @@ arvAVL* insere2(arvAVL* arv,int info,int* cresceu){
         arv->info = info;
         arv->fatorBalan = 0;
         *cresceu = 1;
+        }
     }
     else if(arv->info>info){
         arv->esq = insere2(arv->esq,info,cresceu);
@@ -75,7 +76,7 @@ arvAVL* insere2(arvAVL* arv,int info,int* cresceu){
                 arv->fatorBalan = -1;
                 break;
             case -1:
-                if(arv->dir->fatorBalan==-1) arv = rotEsq(arv);
+                if(arv->fatorBalan==-1) arv = rotEsq(arv);
                     else arv = rotDirEsq(arv);
                 *cresceu = 0;
                 break; 
@@ -112,7 +113,7 @@ arvAVL* rotDir(arvAVL* arv){
     t->fatorBalan = arv->fatorBalan = 0;
     return t;
 }
-arvAVL* rotEsq(arvAVL* arv, int info,int* cresceu){
+arvAVL* rotEsq(arvAVL* arv){
     arvAVL* pai = arv->pai;
     arvAVL* t = arv->dir;
     arvAVL* m = arv->esq;
@@ -162,4 +163,70 @@ arvAVL* rotEsqDir(arvAVL *arv) {
     t->fatorBalan = (s->fatorBalan==-1) ? 1 : 0;
     s->fatorBalan = 0;
     return s;
+}
+
+arvAVL* removeAvl2(arvAVL* arv,int info,int *delta){
+    if(!arv) return NULL;
+    else if(info<arv->info){
+        arv->esq = removeAvl2(arv->esq,info,delta);
+        arv->fatorBalan -=*delta;
+        if(arv->fatorBalan==2){
+            if(arv->fatorBalan==1){
+                arv = rotEsq(arv);
+                *delta = -1;
+            }
+            else if(arv->fatorBalan == 0){
+                arv = rotEsq(arv);
+                *delta = 0;
+            }
+            else if(arv->dir == -1){
+                arv = rotDirEsq(arv);
+                *delta = -1;
+            }
+        }
+        else{
+         *delta = ((arv->fatorBalan==1) ? 0 : -1);
+        }
+    }
+    //else if(info > arv->info)
+    else{
+        if(arv->esq == NULL && arv->dir == NULL){
+            free(arv);
+            *delta = -1;
+            arv = NULL;
+        }
+    }
+    return arv;
+
+}
+arvAVL* removeAvl(arvAVL* arv, int info){
+    int delta = 0;
+    return removeAvl2(arv,info,&delta);
+
+}
+
+int main(void){
+    arvAVL* arv = arvCriaVazia();
+    arv = insere(arv,15);
+    arv = insere(arv,10);
+    arv = insere(arv,20);
+    arv = insere(arv,5);
+    arv = insere(arv,18);
+    arv = insere(arv,25);
+    arv = insere(arv,16);
+    arv = insere(arv,19);
+    arv = insere(arv,22);
+    arv = insere(arv,30);
+    arv = insere(arv,21);
+    printf("Arvore criada!\n");
+    printf("Inserindo elementos: 9,13 e 23\n");
+    arv = insere(arv,9);
+    arv = insere(arv,13);
+    arv = insere(arv,23);
+    printf("Removendo elementos: 10,18,22\n");
+    arv = removeAvl(arv,10);
+    arv = removeAvl(arv,18);
+    arv = removeAvl(arv,22);
+
+    return 0;
 }
