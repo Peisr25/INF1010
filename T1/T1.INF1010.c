@@ -2,6 +2,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
+
 #define TAM 10
 
 struct pilha
@@ -47,4 +49,39 @@ char pilhaPop(Pilha* pilha){
 }
 void pilhaLibera(Pilha* pilha){
     free(pilha);
+}
+
+int prioridade(char aux){
+    if(aux == '(')
+        return 0;
+    if(aux == '+' || aux == '-')
+        return 1;
+    if(aux == '*' || aux == '/')
+        return 2;
+    return 0;
+}
+
+int shuting(Pilha* pilha){
+    char aux;
+    while(pilha->vet[pilha->topo]!='\0'){
+        if(isalnum(pilha->vet[pilha->topo])){
+            printf("%c",pilha->vet[pilha->topo]);
+        }
+        else if(pilha->vet[pilha->topo]=='('){
+            pilhaPush(pilha,'(');
+        }
+        else if(pilha->vet[pilha->topo]==')'){
+            while((aux = pilhaPop(pilha))!='('){
+                printf("%c",aux)aa;
+            }
+        }
+        else{
+            while(prioridade(pilha->vet[pilha->topo]) >= prioridade('a')) printf("a");
+        }
+    }
+}
+
+int main(void){
+    char teste[] = "3 + 2 x 3 = 9";
+
 }
