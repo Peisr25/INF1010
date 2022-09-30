@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-#define TAM 10
+#define TAM 12
 
 struct pilha
 {
@@ -14,11 +14,15 @@ struct pilha
 typedef struct pilha Pilha;
 
 Pilha* pilhaCria(){
+    int i;
     Pilha* pilha = (Pilha*)malloc(sizeof(Pilha));
     if(pilha == NULL){
         printf("erro ao alocar pilha\n");
     }
-    pilha->topo = "\0";
+    for(i=0;i<TAM;i++){
+      pilha->vet[i] = '\0';
+    }
+    pilha->topo = 0;
     return pilha;
 }
 
@@ -61,27 +65,40 @@ int prioridade(char aux){
     return 0;
 }
 
-int shuting(Pilha* pilha){
+int shuting(char* exp){
     char aux;
-    while(pilha->vet[pilha->topo]!='\0'){
-        if(isalnum(pilha->vet[pilha->topo])){
-            printf("%c",pilha->vet[pilha->topo]);
+    Pilha* pilha = pilhaCria();
+
+    while(*exp!='\0'){
+        if(isalnum(*exp)){
+            printf("%c",*exp);
         }
-        else if(pilha->vet[pilha->topo]=='('){
-            pilhaPush(pilha,'(');
+        else if(*exp =='('){
+            pilhaPush(pilha,*exp);
         }
-        else if(pilha->vet[pilha->topo]==')'){
-            while((aux = pilhaPop(pilha))!='('){
-                printf("%c",aux)aa;
+        else if(*exp ==')'){
+            while((aux = pilhaPop(pilha)) != '('){
+                printf("%c",aux);
             }
         }
+        //else if(*exp == ' ') *exp++;
         else{
-            while(prioridade(pilha->vet[pilha->topo]) >= prioridade('a')) printf("a");
+            while(prioridade(pilha->vet[pilha->topo]) >= prioridade(*exp)) 
+                printf("%c",pilhaPop(pilha));
+            pilhaPush(pilha,*exp);
         }
+        *exp++;
     }
+    while (pilha->topo != -1)
+    {
+        printf("%c",pilhaPop(pilha));
+    }
+    return 0;
+    
 }
 
 int main(void){
-    char teste[] = "3 + 2 x 3 = 9";
-
+    char teste[] = "2+(3x(8-4))";
+    int ret = shuting(&teste);
+    return 0;
 }
