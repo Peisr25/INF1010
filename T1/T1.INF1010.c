@@ -43,10 +43,10 @@ void pilhaPush(Pilha* pilha,char v){
 }
 char pilhaPop(Pilha* pilha){
     char v;
-    if(pilhaVazia(pilha)){
+    /*if(pilhaVazia(pilha)){
         printf("Pilha Vazia\n");
         exit(1);
-    }
+    }*/
     v = pilha->vet[pilha->topo-1];
     pilha->topo--;
     return v;
@@ -65,13 +65,14 @@ int prioridade(char aux){
     return 0;
 }
 
-int shuting(char* exp){
-    char aux;
+void shuting(char* exp,char* ret){
+    char aux,retorno[TAM]={"\0"};
     Pilha* pilha = pilhaCria();
-
+    //retorno = (char*)malloc(sizeof(char)*TAM);
     while(*exp!='\0'){
         if(isalnum(*exp)){
             printf("%c",*exp);
+            strncat(retorno,exp,1);
         }
         else if(*exp =='('){
             pilhaPush(pilha,*exp);
@@ -79,26 +80,34 @@ int shuting(char* exp){
         else if(*exp ==')'){
             while((aux = pilhaPop(pilha)) != '('){
                 printf("%c",aux);
+                strncat(retorno,&aux,1);
             }
         }
         //else if(*exp == ' ') *exp++;
         else{
-            while(prioridade(pilha->vet[pilha->topo]) >= prioridade(*exp)) 
-                printf("%c",pilhaPop(pilha));
+            while(prioridade(pilha->vet[pilha->topo]) >= prioridade(*exp)) {
+                char temp = pilhaPop(pilha);
+                printf("%c",temp);
+                strncat(retorno,&temp,1);
+
+            }
             pilhaPush(pilha,*exp);
         }
         *exp++;
     }
     while (pilha->topo != -1)
     {
-        printf("%c",pilhaPop(pilha));
+        char temp1 = pilhaPop(pilha);
+        printf("%c",temp1);
+        strncat(retorno,&temp1,1);
     }
-    return 0;
-    
+    strcpy(ret,retorno);
 }
 
 int main(void){
     char teste[] = "2+(3x(8-4))";
-    int ret = shuting(&teste);
+    char aa[TAM];
+    shuting(&teste,&aa);
+    printf("\nTeste: %s\n",aa);
     return 0;
 }
