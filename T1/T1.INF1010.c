@@ -20,7 +20,7 @@ Pilha* pilhaCria(){
         printf("erro ao alocar pilha\n");
     }
     for(i=0;i<TAM;i++){
-      pilha->vet[i] = '\0';
+      pilha->vet[i] = '\0';         //Loop para inicializar todos os elementos do vetor
     }
     pilha->topo = 0;
     return pilha;
@@ -43,10 +43,6 @@ void pilhaPush(Pilha* pilha,char v){
 }
 char pilhaPop(Pilha* pilha){
     char v;
-    /*if(pilhaVazia(pilha)){
-        printf("Pilha Vazia\n");
-        exit(1);
-    }*/
     v = pilha->vet[pilha->topo-1];
     pilha->topo--;
     return v;
@@ -55,7 +51,7 @@ void pilhaLibera(Pilha* pilha){
     free(pilha);
 }
 
-int prioridade(char aux){
+int prioridade(char aux){           //Função para calcular a prioridade do simbolo
     if(aux == '(')
         return 0;
     if(aux == '+' || aux == '-')
@@ -70,32 +66,31 @@ void shuting(char* exp,char* ret){
     Pilha* pilha = pilhaCria();
     //retorno = (char*)malloc(sizeof(char)*TAM);
     while(*exp!='\0'){
-        if(isalnum(*exp)){
+        if(isalnum(*exp)){          // verifica se é numero, printa e add na string de retorno
             printf("%c",*exp);
             strncat(retorno,exp,1);
         }
-        else if(*exp =='('){
+        else if(*exp =='('){        // verifica se é ( e add na pilha de operações
             pilhaPush(pilha,*exp);
         }
         else if(*exp ==')'){
-            while((aux = pilhaPop(pilha)) != '('){
+            while((aux = pilhaPop(pilha)) != '('){      //verifica se é ) e remove da pilha add na string de retorno
                 printf("%c",aux);
                 strncat(retorno,&aux,1);
             }
         }
-        //else if(*exp == ' ') *exp++;
         else{
-            while(prioridade(pilha->vet[pilha->topo]) >= prioridade(*exp)) {
-                char temp = pilhaPop(pilha);
+            while(prioridade(pilha->vet[pilha->topo]) >= prioridade(*exp)) { //Calcula a prioridade dos sinais 
+                char temp = pilhaPop(pilha); //Remove da pilha de operações e add na string de retorno
                 printf("%c",temp);
                 strncat(retorno,&temp,1);
 
             }
             pilhaPush(pilha,*exp);
         }
-        *exp++;
+        *exp++; //Anda com a string da expressão
     }
-    while (pilha->topo != -1)
+    while (pilha->topo != -1) //Finaliza desempilhando o restante e add na string de retorno
     {
         char temp1 = pilhaPop(pilha);
         printf("%c",temp1);
