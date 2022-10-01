@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-#define TAM 12
+#define TAM 30
 
 struct pilha
 {
@@ -44,6 +44,7 @@ void pilhaPush(Pilha* pilha,char v){
 char pilhaPop(Pilha* pilha){
     char v;
     v = pilha->vet[pilha->topo-1];
+    pilha->vet[pilha->topo-1] = '\0';
     pilha->topo--;
     return v;
 }
@@ -80,7 +81,7 @@ void shuting(char* exp,char* ret){
             }
         }
         else{
-            while(prioridade(pilha->vet[pilha->topo]) >= prioridade(*exp)) { //Calcula a prioridade dos sinais 
+            while(prioridade(pilha->vet[pilha->topo-1]) >= prioridade(*exp)) { //Calcula a prioridade dos sinais 
                 char temp = pilhaPop(pilha); //Remove da pilha de operações e add na string de retorno
                 printf("%c",temp);
                 strncat(retorno,&temp,1);
@@ -101,7 +102,7 @@ void shuting(char* exp,char* ret){
 }
 
 int main(void){
-    char teste[] = "2+(3x(8-4))";
+    char teste[] = "((4+8)(6-5))/((3-2)(2+2))";
     char aa[TAM];
     shuting(&teste,&aa);
     printf("\nTeste: %s\n",aa);
